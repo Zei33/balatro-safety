@@ -1,0 +1,12 @@
+{
+	"id": "balatro-safety",
+	"name": "Balatro Safety",
+	"version": "1.0.0",
+	"description": [
+		"Protects you from accidentally making dangerous decisions.",
+		"You'll be presented with a confirmation before some choices."
+	],
+	"author": "Zei33",
+	"load_before": [],
+	"load_after": []
+}
