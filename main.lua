@@ -1,10 +1,15 @@
 local logging = require("logging")
 local logger = logging.getLogger("balatro-safety")
 
--- Confirmation required
--- Hex - Show on use
--- Ankh - Show on use
+-- Confirmation required for
+-- Stage 1
+-- Spectral (Hex) - Show on use
+-- Spectral (Ankh) - Show on use
+-- Stage 2
 -- Boss Blind (The Mouth) - Show on first hand
+-- Boss Blind (The Psychic) - Show on all non-five card hands
+-- Stage 3
+-- Joker (Ceremonial Dagger)
 
 local function create_multiline_text(text, text_scale, alignment, padding)
 	local text = text or { }
@@ -109,8 +114,7 @@ local function create_UIBox_confirmation(options)
 				padding = 0,
 				minw = 5,
 				minh = 4,
-				r = 1,
-				--colour = G.C.GREEN
+				r = 1
 			},
 			nodes = {
 				{
@@ -120,8 +124,7 @@ local function create_UIBox_confirmation(options)
 						padding = 0,
 						minw = 5,
 						minh = 4,
-						r = 1,
-						--colour = G.C.UI.BACKGROUND_DARK
+						r = 1
 					},
 					nodes = {
 						{
@@ -177,8 +180,7 @@ local function create_UIBox_confirmation(options)
 								minw = 5,
 								minh = 2,
 								maxw = 5,
-								r = 1,
-								--colour = G.C.BLUE
+								r = 1
 							},
 							nodes = create_multiline_text({
 								"Are you SURE",
@@ -206,8 +208,7 @@ local function create_UIBox_confirmation(options)
 								minw = 5,
 								minh = 2,
 								maxw = 5,
-								r = 1,
-								--colour = G.C.RED
+								r = 1
 							},
 							nodes = {
 								{
@@ -222,7 +223,7 @@ local function create_UIBox_confirmation(options)
 									},
 									nodes = {
 										UIBox_button({
-											button = 'safety_confirm', 
+											button = 'confirm_action', 
 											label = { "CONFIRM" },
 											minw = 4.75, 
 											minh = 0.95, 
@@ -244,7 +245,7 @@ local function create_UIBox_confirmation(options)
 									},
 									nodes = {
 										UIBox_button({
-											button = 'safety_cancel', 
+											button = 'cancel_action', 
 											label = { "CANCEL" },
 											minw = 4.75, 
 											minh = 0.95, 
@@ -274,31 +275,77 @@ local function create_UIBox_confirmation(options)
 	}
 end
 
-local function on_enable()
-	G.UIDEF.safety_box = function(card)
-		card_desc = {}
-		localize{type = 'descriptions', key = card.config.center.key, set = card.config.center.set, nodes = card_desc, vars = { } }
-		
-		return {
-			n = G.UIT.ROOT,
-			config = {
-				align = "cm",
-				padding = 0.1,
-				r = 2
-			},
-			nodes = create_UIBox_generic_container({
-				content = create_UIBox_confirmation({
-					card = card,
-					card_desc = card_desc
-				})
+local confirm_action = nil
+local safety_card = nil
+local danger_cards = { "c_hex", "c_ankh" }
+
+G.UIDEF.safety_box = function(card)
+	local display_card = Card(0, 0, G.CARD_W, G.CARD_H, card.config.center, card.config.center)
+	display_card.no_ui = true
+	card.area:unhighlight_all()
+	
+	card_desc = {}
+	localize{type = 'descriptions', key = card.config.center.key, set = card.config.center.set, nodes = card_desc, vars = { } }
+	
+	return {
+		n = G.UIT.ROOT,
+		config = {
+			align = "cm",
+			padding = 0.1,
+			r = 2
+		},
+		nodes = create_UIBox_generic_container({
+			content = create_UIBox_confirmation({
+				card = display_card,
+				card_desc = card_desc
 			})
-		}
+		})
+	}
+end
+
+local function has_value(tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end
+
+G.FUNCS.confirm_action = function()
+	if confirm_action then
+		confirm_action()
 	end
+end
 
-	card = Card(0, 0, G.CARD_W, G.CARD_H, G.P_CENTERS.c_hex, G.P_CENTERS.c_hex)
-	card.no_ui = true
+G.FUNCS.cancel_action = function()
+	G.FUNCS.exit_overlay_menu()
+	safety_card = nil
+	confirm_action = nil
+end
 
-	G.FUNCS.overlay_menu({definition = G.UIDEF.safety_box(card)})
+G.FUNCS.use_card_original = G.FUNCS.use_card
+
+G.FUNCS.use_card = function(e, mute, nosave)
+	logger:debug(e.config.ref_table.config.center)
+	safety_card = e.config.ref_table
+	
+	if safety_card.config.center.set == "Spectral" and has_value(danger_cards, safety_card.config.center.key) then
+		confirm_action = function()
+			G.FUNCS.use_card_original(e, mute, nosave)
+			G.FUNCS.exit_overlay_menu()
+		end
+
+		G.FUNCS.overlay_menu({definition = G.UIDEF.safety_box(safety_card) })
+	else
+		confirm_action = nil
+		safety_card = nil
+		G.FUNCS.use_card_original(e, mute, nosave)
+	end
+end
+
+local function on_enable()
 end
 
 local function on_disable()
