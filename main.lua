@@ -223,7 +223,7 @@ local function create_UIBox_confirmation(options)
 									},
 									nodes = {
 										UIBox_button({
-											button = 'confirm_action', 
+											button = 'safety_confirm_action', 
 											label = { "CONFIRM" },
 											minw = 4.75, 
 											minh = 0.95, 
@@ -245,7 +245,7 @@ local function create_UIBox_confirmation(options)
 									},
 									nodes = {
 										UIBox_button({
-											button = 'cancel_action', 
+											button = 'safety_cancel_action', 
 											label = { "CANCEL" },
 											minw = 4.75, 
 											minh = 0.95, 
@@ -313,19 +313,19 @@ local function has_value(tab, val)
     return false
 end
 
-G.FUNCS.confirm_action = function()
+G.FUNCS.safety_confirm_action = function()
 	if confirm_action then
 		confirm_action()
 	end
 end
 
-G.FUNCS.cancel_action = function()
+G.FUNCS.safety_cancel_action = function()
 	G.FUNCS.exit_overlay_menu()
 	safety_card = nil
 	confirm_action = nil
 end
 
-G.FUNCS.use_card_original = G.FUNCS.use_card
+G.FUNCS.safety_use_card = G.FUNCS.use_card
 
 G.FUNCS.use_card = function(e, mute, nosave)
 	logger:debug(e.config.ref_table.config.center)
@@ -333,7 +333,7 @@ G.FUNCS.use_card = function(e, mute, nosave)
 	
 	if safety_card.config.center.set == "Spectral" and has_value(danger_cards, safety_card.config.center.key) then
 		confirm_action = function()
-			G.FUNCS.use_card_original(e, mute, nosave)
+			G.FUNCS.safety_use_card(e, mute, nosave)
 			G.FUNCS.exit_overlay_menu()
 		end
 
@@ -341,7 +341,7 @@ G.FUNCS.use_card = function(e, mute, nosave)
 	else
 		confirm_action = nil
 		safety_card = nil
-		G.FUNCS.use_card_original(e, mute, nosave)
+		G.FUNCS.safety_use_card(e, mute, nosave)
 	end
 end
 
