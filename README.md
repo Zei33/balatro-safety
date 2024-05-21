@@ -1,6 +1,8 @@
 # Balatro Safety
 This is a mod for Balatro which presents a confirmation window when you take potentially game-ruining actions. Balatro has no rewind feature, and when you're playing hands for hours at a time, it's easy to make a mistake. A simple mistake shouldn't cost you a good run.
 
+![Hex and Ankh booster pack warning](https://i.imgur.com/VXA2Rsh.png)
+
 ## Installation
 This mod requires Balamod v1.2.3 or higher. Find [balamod releases here](https://github.com/balamod/balamod-gui). Once installed, you can access the mod marketplace in-game and add it there.
 
