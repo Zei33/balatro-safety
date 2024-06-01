@@ -4,7 +4,7 @@ This is a mod for Balatro which presents a confirmation window when you take pot
 ![Hex and Ankh booster pack warning](https://i.imgur.com/VXA2Rsh.png)
 
 ## Installation
-This mod requires Balamod v1.2.3 or higher. Find [balamod releases here](https://github.com/balamod/balamod-gui). Once installed, you can access the mod marketplace in-game and add it there.
+This mod requires Balamod v1.0.5 (gui v1.2.3) or higher. Find [balamod releases here](https://github.com/balamod/balamod-gui). Once installed, you can access the mod marketplace in-game and add it there.
 
 ## Current features
 The program will present a confirmation box upon the usage of these spectral cards. Clicking cancel will give you the opportunity to pick another.
