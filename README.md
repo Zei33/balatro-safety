@@ -24,3 +24,6 @@ Focuses on boss blinds and require confirmation
 Focuses on dangerous jokers and require confirmation
 - Ceremonial Dagger: Upon selecting a blind
 - Madness: Upon selecting a blind
+
+## Other Mods
+- [Deselect All](https://github.com/Zei33/deselect-all-balamod) - Add a deselect all button to quickly deselect highlighted cards.
