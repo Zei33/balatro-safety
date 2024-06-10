@@ -1,4 +1,4 @@
-# Balatro Safety
+# Balatro Safety (Balamod)
 This is a mod for Balatro which presents a confirmation window when you take potentially game-ruining actions. Balatro has no rewind feature, and when you're playing hands for hours at a time, it's easy to make a mistake. A simple mistake shouldn't cost you a good run.
 
 ![Hex and Ankh booster pack warning](https://i.imgur.com/VXA2Rsh.png)
@@ -7,7 +7,7 @@ This is a mod for Balatro which presents a confirmation window when you take pot
 This mod requires Balamod v1.0.5 (gui v1.2.3) or higher. Find [balamod releases here](https://github.com/balamod/balamod-gui). Once installed, you can access the mod marketplace in-game and add it there.
 
 ## Current features
-The program will present a confirmation box upon the usage of these spectral cards. Clicking cancel will give you the opportunity to pick another.
+The mod will present a confirmation box upon the usage of these spectral cards. Clicking cancel will give you the opportunity to pick another.
 - Ankh: Creates a copy of 1 of your Jokers at random, then destroys the others, leaving you with two identical Jokers
 - Hex: (Adds Polychrome to a random Joker, and destroys the rest)
 
@@ -26,4 +26,11 @@ Focuses on dangerous jokers and require confirmation
 - Madness: Upon selecting a blind
 
 ## Other Mods
-- [Deselect All](https://github.com/Zei33/deselect-all-balamod) - Add a deselect all button to quickly deselect highlighted cards.
+#### Deselect All
+Add a deselect all button to quickly deselect highlighted cards.
+- [Deselect All (Balamod)](https://github.com/Zei33/deselect-all-balamod)
+- [Deselect All (Steamodded)](https://github.com/Zei33/deselect-all-steamodded)
+#### Balatro Safety
+Get a confirmation dialogue before committing to a dangerous action.
+- [Balatro Safety (Balamod)](https://github.com/Zei33/balatro-safety-balamod)
+- [Balatro Safety (Steamodded)](https://github.com/Zei33/balatro-safety-steamodded)
