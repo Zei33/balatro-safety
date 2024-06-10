@@ -5,6 +5,7 @@ This is a mod for Balatro which presents a confirmation window when you take pot
 
 ## Installation
 This mod requires Balamod v1.0.5 (gui v1.2.3) or higher. Find [balamod releases here](https://github.com/balamod/balamod-gui). Once installed, you can access the mod marketplace in-game and add it there.
+
 If it's not showing in the marketplace yet, you navigate to your `%AppData%\Balatro\mods` directory (or your OS equivalent) and extract this repo to a folder named `balatro-safety` (or just `git clone git@github.com:Zei33/balatro-safety-balamod.git`).
 
 ## Current features
